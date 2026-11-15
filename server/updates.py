@@ -23,8 +23,12 @@ import time
 import netfetch
 
 REPO = "TecnaGamer/BeamNG.Earth"
-LATEST_API = f"https://api.github.com/repos/{REPO}/releases/latest"
-PAGE_URL = f"https://github.com/{REPO}/releases"      # the downloads (.exe / AppImage)
+# DeRamp fork (modding API 1.9 for Earth Rally, until upstream releases it): updates and downloads come from the
+# fork's own releases, so the updater never replaces it with an official build that lacks the API. Issue reports and
+# the About links stay on upstream (REPO).
+RELEASE_REPO = "DeRamp/BeamNG.Earth"
+LATEST_API = f"https://api.github.com/repos/{RELEASE_REPO}/releases/latest"
+PAGE_URL = f"https://github.com/{RELEASE_REPO}/releases"      # the downloads (.exe / AppImage)
 # the folder with VERSION: above server/, or the packaged app's bundle (launcher.py frozen by PyInstaller, where
 # every module sits at the bundle's top)
 ROOT = getattr(sys, "_MEIPASS", None) or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -90,7 +94,7 @@ def check(current, net=None):
     return {"current": current, "latest": latest, "url": url}
 
 
-RELEASES_API = f"https://api.github.com/repos/{REPO}/releases?per_page=30"
+RELEASES_API = f"https://api.github.com/repos/{RELEASE_REPO}/releases?per_page=30"
 RELEASES_TTL_S = 3 * 3600.0     # the releases list kept this long (api.github.com: a few requests a day, netfetch)
 _releases = [0.0, None]
 _releases_lock = threading.Lock()
@@ -122,7 +126,7 @@ def newest_release(net, fresh=False):
     for x in releases(net, fresh) or ():
         v = str(x.get("tag_name") or "").lstrip("v")
         url = str(x.get("html_url") or "")
-        if parse(v) is None or not url.startswith(f"https://github.com/{REPO}/"):
+        if parse(v) is None or not url.startswith(f"https://github.com/{RELEASE_REPO}/"):
             continue
         if best is None or newer(v, best[0]):
             best = (v, url, x)
@@ -144,7 +148,8 @@ def openable(url):
     """Whether open_page may open url: this project's GitHub pages, OPEN_EXACT, or a GitHub user's profile."""
     if not isinstance(url, str) or any(c in url for c in ' "\'<>`\\\n\r'):
         return False
-    return url.startswith(OPEN_PREFIX) or url in OPEN_EXACT or _PROFILE.fullmatch(url) is not None
+    return (url.startswith(OPEN_PREFIX) or url == PAGE_URL or url.startswith(PAGE_URL + "/") or url in OPEN_EXACT
+            or _PROFILE.fullmatch(url) is not None)
 
 
 def open_page(url, popen=None, allow=None):

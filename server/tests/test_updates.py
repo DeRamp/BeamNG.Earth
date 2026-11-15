@@ -53,7 +53,7 @@ class UpdatesTest(unittest.TestCase):
 
     def test_development_build_checks_the_prereleases(self):
         import json
-        page = f"https://github.com/{updates.REPO}/releases/tag/"
+        page = f"https://github.com/{updates.RELEASE_REPO}/releases/tag/"
         rels = [{"tag_name": "v1.7.2-beta.dev.12", "html_url": page + "v1.7.2-beta.dev.12", "prerelease": True},
                 {"tag_name": "v1.7.3-beta.dev.2", "html_url": "https://evil.example/x", "prerelease": True},
                 {"tag_name": "v1.7.2-beta.dev.11", "html_url": page + "v1.7.2-beta.dev.11", "prerelease": True},
@@ -125,8 +125,13 @@ class OpenPageTest(unittest.TestCase):
                     "https://github.com.evil.example/x", "https://discord.gg/tgf/../x", "https://github.com/" + "a" * 40):
             self.assertFalse(updates.openable(bad), bad)
 
-    def test_downloads_stay_on_upstream(self):
+    def test_downloads_come_from_the_fork(self):
+        """DeRamp fork: updates and downloads from the fork's releases, issue reports and About links on upstream."""
         import selfupdate
         self.assertEqual(updates.REPO, "TecnaGamer/BeamNG.Earth")
+        self.assertEqual(updates.RELEASE_REPO, "DeRamp/BeamNG.Earth")
+        self.assertEqual(updates.LATEST_API, "https://api.github.com/repos/DeRamp/BeamNG.Earth/releases/latest")
         self.assertEqual(selfupdate.API_URL, updates.LATEST_API)
-        self.assertEqual(selfupdate.ASSET_PREFIX, "https://github.com/TecnaGamer/BeamNG.Earth/releases/download/")
+        self.assertEqual(selfupdate.ASSET_PREFIX, "https://github.com/DeRamp/BeamNG.Earth/releases/download/")
+        self.assertTrue(updates.openable("https://github.com/DeRamp/BeamNG.Earth/releases/tag/v1.10.0-beta.fork.1"))
+        self.assertFalse(updates.openable("https://github.com/DeRamp/BeamNG.Earth/issues"))

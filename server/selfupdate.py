@@ -22,7 +22,7 @@ import netfetch
 import updates
 
 API_URL = updates.LATEST_API
-ASSET_PREFIX = f"https://github.com/{updates.REPO}/releases/download/"
+ASSET_PREFIX = f"https://github.com/{updates.RELEASE_REPO}/releases/download/"
 STAGED = "BeamNG.Earth-update.json"     # beside the downloaded file: {"version", "path", "sha256"}
 # beside it too: a downloaded version Windows would not start (Smart App Control: an unsigned .exe, no "run anyway";
 # GitHub #823): {"version", "by"}, not offered again (earthd.check_update)
