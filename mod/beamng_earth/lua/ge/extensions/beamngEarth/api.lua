@@ -615,8 +615,8 @@ end
 -- add-on that adds one has to live with all of this:
 --   * **The player sees it** in the 3D map's area list, its line drawn, and can pause, resume or delete it. Name
 --     it so they know what it is.
---   * **There are ten slots** (areas.MAX_AREAS) and you are competing for them. When they are full your add fails
---     -- and so does the player's own next one, which is the worse half of that.
+--   * **It takes the player's disk**: an add the disk has no room for is refused ("not enough room: ..."), and
+--     every area you add is room the player's own next one does not get.
 --   * **Its data is pinned**: never evicted, and "Clear cache" keeps it. An add that would take the saved areas
 --     past their share of the cache is refused with a message naming the setting to raise. Surface it; it is the
 --     player's to act on, not yours to swallow.

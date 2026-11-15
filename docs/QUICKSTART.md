@@ -98,7 +98,7 @@ graphics settings (`game: machine:` lines) and the game's own performance lines:
   backup name (for example `.venv-backup`). Then open a terminal in the project folder and run
   `py -3.12 install.py`. Installing another Python and rerunning the installer alone does not
   change the interpreter in an existing `.venv`. Alternatively, use the standalone Windows
-  `.exe` from the [Releases page](https://github.com/TecnaGamer/BeamNG.Earth/releases), which
+  `.exe` from the [Releases page](https://github.com/DeRamp/BeamNG.Earth/releases), which
   includes Python and the server's packages.
 - **"Looking for the world server" / "server not connected" banner** in the game: the server is not
   running. Start `run_server.bat` / `./run_server.sh` and wait a few seconds; the game reconnects

@@ -421,7 +421,7 @@ You can help support development by reporting [issues](https://github.com/TecnaG
 as you visit places, up to 20 GB by default; Settings > Storage > "Cache size limit" takes any size in GB, 0 for no limit), and an internet
 connection (the map is downloaded while you play).
 
-1. **Download** the file for your system from the [Releases](https://github.com/TecnaGamer/BeamNG.Earth/releases)
+1. **Download** the file for your system from the [Releases](https://github.com/DeRamp/BeamNG.Earth/releases)
    page:
    - **Windows:** `BeamNG.Earth-<version>.exe`. Windows may warn about an unknown app: **More info > Run anyway**.
    - **Linux:** `BeamNG.Earth-<version>-x86_64.AppImage`. Make it executable (right-click > Properties >
@@ -580,7 +580,7 @@ port in your router, or you simply build everything yourself. A port of your own
 -->
 
 **Hosting a server:** download `BeamNG.Earth-BeamMP-Server-<version>.zip` from the
-[Releases](https://github.com/TecnaGamer/BeamNG.Earth/releases) page and follow the guide inside
+[Releases](https://github.com/DeRamp/BeamNG.Earth/releases) page and follow the guide inside
 (`BeamNG.Earth-README.md`). In short: unzip it into a BeamMP server's folder, set
 `Map = "/levels/beamng_earth/info.json"` in `ServerConfig.toml`, forward the server's port (TCP and UDP) for players
 over the internet, and start it (its log shows `[BeamNG.Earth] plugin loaded`). Which list it is on:
